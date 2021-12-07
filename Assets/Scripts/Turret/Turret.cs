@@ -13,17 +13,19 @@ public class Turret : MonoBehaviour
 
 
     public float cooldown;
+    public float chauffe = 0.1f;
     public GameObject prefabShoot;
 
     private float lastShot = 0;
 
-    public virtual void Try_Shoot(Vector3 targetPos, float dmgMultiplier = 1)
+    public virtual float Try_Shoot(Vector3 targetPos, float dmgMultiplier = 1)
     {
-
         if (Time.time - lastShot > cooldown)
         {
             Shoot(targetPos, dmgMultiplier);
+            return chauffe;
         }
+        return 0;
     }
 
     protected virtual void Shoot(Vector3 targetPos, float dmgMultiplier = 1)
@@ -32,8 +34,10 @@ public class Turret : MonoBehaviour
         Shoot shootShoot = shootGO.GetComponent<Shoot>();
         if(shootShoot != null)
         {
-            shootShoot.direction = targetPos - startPoint.transform.position;
-            shootShoot.direction.Normalize();
+            Vector3 directionShoot = (targetPos - startPoint.transform.position).normalized;
+            
+            shootShoot.direction = UtilsVector.RotateVectorAroundZ(directionShoot, offsetDirection.z);
+
             shootShoot.direction *= shootSpeed;
             shootShoot.damage *= dmgMultiplier;
         }
@@ -47,6 +51,6 @@ public class Turret : MonoBehaviour
         float angleDiff = Vector3.SignedAngle(currentWorldForwardDirection, direction.normalized, Vector3.forward);
 
 
-        canonVisual.rotation = Quaternion.Euler(Vector3.forward * angleDiff + offsetDirection);
+        canonVisual.localRotation = Quaternion.Euler(Vector3.forward * angleDiff - offsetDirection);
     }
 }
