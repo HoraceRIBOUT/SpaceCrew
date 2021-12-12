@@ -36,7 +36,7 @@ public class UI_Conversation : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        GetComponent<CanvasGroup>().alpha = 1;
     }
 
     // Update is called once per frame
@@ -44,8 +44,10 @@ public class UI_Conversation : MonoBehaviour
     {
         if (displayNext)
         {
-            ConversationAdvance();
-            DisplayConversation(currentConversationDisplayed);
+            if (ConversationAdvance())
+            {
+                DisplayConversation(currentConversationDisplayed);
+            }
             displayNext = false;
         }
         if (displayIt)
@@ -65,6 +67,7 @@ public class UI_Conversation : MonoBehaviour
     void DisplayConversation(Conversation currentConversationDisplayed)
     {
         Sentence sent = currentConversationDisplayed.sentences[currentConversationDisplayed.currentIndex];
+        Debug.Log("Update conversation (" + currentConversationDisplayed.currentIndex + ") : " + sent.textDisplay);
         int indexCharac = (int)sent.character - 1;
         convAnim.SetBool("Icon", (indexCharac != -1));
         convAnim.SetBool("Visible", true);
@@ -115,8 +118,8 @@ public class UI_Conversation : MonoBehaviour
         for (int i = 0; i < textDisplay.Length; i++)
         {
             string s = (phold ? plhold : "");
-            Debug.Log("i " + i + " / "+ textDisplay.Length 
-                + "\n" + textDisplay);
+            //Debug.Log("i " + i + " / "+ textDisplay.Length 
+            //    + "\n" + textDisplay);
             s += textDisplay.Remove(i, textDisplay.Length - i);
             s += "<color=#FFFFFF00>";
             s += textDisplay.Remove(0, i);
@@ -126,7 +129,7 @@ public class UI_Conversation : MonoBehaviour
             yield return new WaitForSeconds(timeBetween);
             if (timeBetween < Time.deltaTime)
             {
-                Debug.Log("Time.deltaTime " + Time.deltaTime + " / timeBetween " + timeBetween + " = " + (Time.deltaTime / timeBetween));
+//                Debug.Log("Time.deltaTime " + Time.deltaTime + " / timeBetween " + timeBetween + " = " + (Time.deltaTime / timeBetween));
                 i += (int)(Time.deltaTime / timeBetween) - 1;
             }
         }
@@ -135,13 +138,21 @@ public class UI_Conversation : MonoBehaviour
     }
 
 
-    public void ConversationAdvance()
+    public bool ConversationAdvance()
     {
         currentConversationDisplayed.currentIndex++;
         if (currentConversationDisplayed.currentIndex >= currentConversationDisplayed.sentences.Count)
         {
-            convAnim.SetBool("Visible", false); //maybe ?
+            Debug.Log("Finish here !");
+            Finish();
             currentConversationDisplayed.currentIndex = 0;
+            return false;
         }
+        return true;
+    }
+
+    public void Finish()
+    {
+        convAnim.SetBool("Visible", false); //maybe ?
     }
 }

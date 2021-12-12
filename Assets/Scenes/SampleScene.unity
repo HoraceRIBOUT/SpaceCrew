@@ -8415,7 +8415,7 @@ MonoBehaviour:
       textDisplay: But I can also help you if you broke your arm or anything else!
         Trust me!
       speed: 120
-    currentIndex: 4
+    currentIndex: 0
   displayIt: 0
   displayNext: 0
   icon: {fileID: 2031941988}

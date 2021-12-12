@@ -24,6 +24,8 @@ public class UI_Inventory : MonoBehaviour
     {
         Resize();
         visible_mem = visible;
+        if(Application.isPlaying)
+            GetComponent<CanvasGroup>().alpha = 1;
     }
 
     // Update is called once per frame
