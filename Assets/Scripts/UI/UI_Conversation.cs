@@ -36,7 +36,8 @@ public class UI_Conversation : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GetComponent<CanvasGroup>().alpha = 1;
+        if(Application.isPlaying)
+            GetComponent<CanvasGroup>().alpha = 1;
     }
 
     // Update is called once per frame

@@ -17,6 +17,7 @@ public class Vaisseau : MonoBehaviour
 
     [Header("Part")]
     public Camera mainCam;
+    public UI_Manager ui_man;
 
     [Header("Defense")]
     public float pv = 100;
@@ -207,20 +208,34 @@ public class Vaisseau : MonoBehaviour
 
     public void Landing()
     {
-        landingLerp += Time.deltaTime * landingSpeed;
         if (landingLerp >= 1)
         {
             landingLerp = 1;
-            OpenInventory();
-            landingOn = false;
+            Land();
+        }
+        else
+        {
+            landingLerp += Time.deltaTime * landingSpeed;
+            landingLerp = Mathf.Clamp01(landingLerp);
         }
         visualMain.rotation = Quaternion.Lerp(landingRotation_start, landingRotation, landingRotCurve.Evaluate(landingLerp));
         this.transform.position = Vector3.Lerp(landingPoint_start, landingPoint, landingPosCurve.Evaluate(landingLerp));
     }
 
+    public void Land()
+    {
+        //if conversation : make conv before landing
+        OpenInventory();
+    }
+
     public void OpenInventory()
     {
+        ui_man.inventory.OpenInventory();
+    }
 
+    public void ClosedInventory()
+    {
+        landingOn = false;
     }
 
 

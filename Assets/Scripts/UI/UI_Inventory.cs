@@ -53,6 +53,26 @@ public class UI_Inventory : MonoBehaviour
         
     }
 
+    public void OpenInventory()
+    {
+        Resize();
+        anima.SetBool("Visible", true);
+        visible = true;
+        WaveBoxInv(true);
+        visible_mem = true;
+    }
+
+    public void CloseInventory()
+    {
+        Resize();
+        anima.SetBool("Visible", false);
+        visible = false;
+        WaveBoxInv(false);
+        visible_mem = false;
+
+        Vaisseau.instance.ClosedInventory();
+    }
+
     public float delayBetween = 0.05f;
     public void WaveBoxInv(bool visible)
     {
@@ -63,7 +83,7 @@ public class UI_Inventory : MonoBehaviour
             int.TryParse(number, out int res);
             float toWait = (res % 10) + ((int)res / 10);
             toWait *= delayBetween;
-            Debug.Log("toWait = " + toWait + "res = " + number + " res = " + res);
+//Debug.Log("toWait = " + toWait + "res = " + number + " res = " + res);
             StartCoroutine(LaunchAnim(ani, toWait, visible));
         }
     }
