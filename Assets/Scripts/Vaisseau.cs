@@ -211,11 +211,18 @@ public class Vaisseau : MonoBehaviour
         if (landingLerp >= 1)
         {
             landingLerp = 1;
+            OpenInventory();
             landingOn = false;
         }
         visualMain.rotation = Quaternion.Lerp(landingRotation_start, landingRotation, landingRotCurve.Evaluate(landingLerp));
         this.transform.position = Vector3.Lerp(landingPoint_start, landingPoint, landingPosCurve.Evaluate(landingLerp));
     }
+
+    public void OpenInventory()
+    {
+
+    }
+
 
 
     #endregion
