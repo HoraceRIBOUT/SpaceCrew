@@ -11,16 +11,21 @@ public class UI_Conversation : MonoBehaviour
     public bool displayIt = false;
     public bool displayNext = false;
 
+    public bool on = false;
+    public bool canPassToNext = false;
+
 
     [Header("Part")]
     public GameObject icon;
     public Image iconMain;
+    public Animator iconMainAnim;
     public Image iconFace;
     public Image iconShad;
     public Image iconBg; //color change between frame
 
     public TMPro.TMP_Text textToFill;
     public Animator convAnim;
+    public Animator iconClick;
 
     [Header("Element")]
     public List<Sprite> characterSprite;
@@ -43,6 +48,24 @@ public class UI_Conversation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (on)
+        {
+            if ((Input.GetMouseButtonDown(0) || 
+                Input.GetKeyDown(KeyCode.Space) 
+                ) && canPassToNext)
+            {
+                if (ConversationAdvance())
+                {
+                    DisplayConversation(currentConversationDisplayed);
+                }
+                else
+                {
+                    //ConversationAdvance do the "Finish();"
+                }
+            }
+        }
+
+        
         if (displayNext)
         {
             if (ConversationAdvance())
@@ -72,10 +95,13 @@ public class UI_Conversation : MonoBehaviour
         int indexCharac = (int)sent.character - 1;
         convAnim.SetBool("Icon", (indexCharac != -1));
         convAnim.SetBool("Visible", true);
-        if(indexCharac != -1)
+        on = true;
+        if (indexCharac != -1)
         {
             Debug.Log("indexCharac " + indexCharac);
             iconMain.sprite = characterSprite[indexCharac];
+            if (iconMainAnim != null)
+                iconMainAnim.SetInteger("State", sent.animation);
             iconShad.sprite = characterShadowSprite[indexCharac];
             switch (sent.character)
             {
@@ -107,6 +133,9 @@ public class UI_Conversation : MonoBehaviour
         {
             StopCoroutine(textAppear);
         }
+        canPassToNext = false;
+        if(iconClick != null)
+            iconClick.SetBool("On",false);
         textAppear = StartCoroutine(TextApproch(sent, (indexCharac != -1)));
     }
 
@@ -127,6 +156,11 @@ public class UI_Conversation : MonoBehaviour
             s += "</color>";
             textToFill.text = s;
 
+            if (Input.GetMouseButtonDown(0))
+            {
+                break;
+            }
+
             yield return new WaitForSeconds(timeBetween);
             if (timeBetween < Time.deltaTime)
             {
@@ -136,6 +170,9 @@ public class UI_Conversation : MonoBehaviour
         }
         textToFill.text = (phold ? plhold : "") + textDisplay;
         textAppear = null;
+        canPassToNext = true;
+        if (iconClick != null)
+            iconClick.SetBool("On", true);
     }
 
 
@@ -155,5 +192,10 @@ public class UI_Conversation : MonoBehaviour
     public void Finish()
     {
         convAnim.SetBool("Visible", false); //maybe ?
+        on = false;
+        
+        canPassToNext = false;
+        if (iconClick != null)
+            iconClick.SetBool("On", false);
     }
 }

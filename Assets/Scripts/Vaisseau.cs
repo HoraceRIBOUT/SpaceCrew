@@ -44,22 +44,34 @@ public class Vaisseau : MonoBehaviour
     public SpriteRenderer surchauffeRenderer;
     public Gradient colorSurchauffe;
 
-
+    public ConvData convData;
 
     // Start is called before the first frame update
     void Start()
     {
         if (friction >= speedGainPerSecond)
             friction = speedGainPerSecond / 2f;
+
+        StartCoroutine(CinematicIntro());
+    }
+
+    public IEnumerator CinematicIntro()
+    {
+        //Logo disapear
+
+        yield return new WaitForSeconds(0.1f);
+        ui_man.conversation.StartThisConversation(convData.entranceConv);
     }
 
     // Update is called once per frame
     void Update()
     {
-        MovementManager();
+        if (!ui_man.conversation.on)
+        {
+            MovementManager();
 
-        ShootManagement();
-        
+            ShootManagement();
+        }
         UpdateVisual();
     }
 
@@ -164,15 +176,15 @@ public class Vaisseau : MonoBehaviour
 
     public void Collision_Collect(Collectable collect)
     {
-        if (collect.itemType == ItemCollectable.None)
+        if (collect.itemCollect.type == ItemCollectable.None)
         {
-            AddStat(collect.statToAdd);
+            AddStat(collect.itemCollect.statToAdd);
             collect.Death();
         }
         else
         {
             //Add to inventory (with UI effect and all ! It will be glorious)
-            Debug.Log("TO DO : just imagine you have an inventory with now " + collect.itemType + " in it.");
+            Debug.Log("TO DO : just imagine you have an inventory with now " + collect.itemCollect.type + " in it.");
             collect.Death();
         }
     }

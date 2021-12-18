@@ -5,6 +5,11 @@ using UnityEngine;
 public class Destroyable : MonoBehaviour
 {
     public float pv = 1;
+    public List<GameObject> dropableObject;
+    public int numberItemDrop = 0;
+    public bool notDouble = false;
+
+    public GameObject destroyFX;
 
     public void GetHit(float damage = 1)
     {
@@ -19,6 +24,27 @@ public class Destroyable : MonoBehaviour
 
     public void Death()
     {
+        if(dropableObject.Count > 0)
+        {
+
+            for (int i = 0; i < numberItemDrop && dropableObject.Count > 0; i++)
+            {
+                int randomIndex = Random.Range(0, dropableObject.Count);
+                Collectable collec = Instantiate(dropableObject[randomIndex], this.transform.position, this.transform.rotation).GetComponent<Collectable>();
+                //Push it in a random direction with rotation
+
+                if (notDouble)
+                {
+                    dropableObject.RemoveAt(randomIndex);
+                }
+            }
+        }
+
+        if(destroyFX != null)
+        {
+            Instantiate(destroyFX, this.transform.position, this.transform.rotation);
+        }
+
         Destroy(this.gameObject);
     }
 

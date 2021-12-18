@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf4f104d53b35b94980690e4635ad002, type: 3}
+  m_Name: Conversations
+  m_EditorClassIdentifier: 
+  entranceConv:
+    sentences:
+    - character: 2
+      indexFace: 5
+      bgColor: {r: 0.6039216, g: 0.4784314, b: 0.4784314, a: 1}
+      textDisplay: 'Welcome aboard! Capitain Gieger speaking. '
+      speed: 1
+      animation: 0
+    - character: 2
+      indexFace: 0
+      bgColor: {r: 0.6039216, g: 0.4784314, b: 0.4784314, a: 1}
+      textDisplay: Your the foutrh member of this crew. Your official title is "linker".
+        But your real job will be a little different.
+      speed: 1
+      animation: 0
+    - character: 2
+      indexFace: 0
+      bgColor: {r: 0.6039216, g: 0.4784314, b: 0.4784314, a: 1}
+      textDisplay: 'The basic of your job is still there : collect ressource and
+        dispatch it between the sections. '
+      speed: 1
+      animation: 0
+    - character: 2
+      indexFace: 0
+      bgColor: {r: 0.6039216, g: 0.4784314, b: 0.4784314, a: 1}
+      textDisplay: But because the three sections need to work as one, you will be
+        in charge of "where we go" and "where we shoot".
+      speed: 1
+      animation: 0
+    - character: 2
+      indexFace: 0
+      bgColor: {r: 0.6039216, g: 0.4784314, b: 0.4784314, a: 1}
+      textDisplay: Try take command and move.
+      speed: 1
+      animation: 0
+    - character: 3
+      indexFace: 0
+      bgColor: {r: 0.29792634, g: 0.59267855, b: 0.6132076, a: 1}
+      textDisplay: OH ! Can you try shoot at the asteroid!!!
+      speed: 4
+      animation: 3
+    - character: 2
+      indexFace: 0
+      bgColor: {r: 0.6039216, g: 0.4784314, b: 0.4784314, a: 1}
+      textDisplay: ...
+      speed: 0.1
+      animation: 0
+    - character: 3
+      indexFace: 0
+      bgColor: {r: 0.29803923, g: 0.5921569, b: 0.6117647, a: 1}
+      textDisplay: To... exercice with the shooting...?
+      speed: 0.6
+      animation: 0
+    - character: 2
+      indexFace: 0
+      bgColor: {r: 0.6039216, g: 0.4784314, b: 0.4784314, a: 1}
+      textDisplay: . . . Why not, exercice on the asteroid, it's full of ressources
+        to collect to.
+      speed: 1
+      animation: 0
+    currentIndex: 0

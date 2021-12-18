@@ -31,7 +31,8 @@ public class Sentence
     public Color bgColor = new Color(149,105,105,179);
     [TextArea]
     public string textDisplay = "";
-    public float speed = 1f; 
+    public float speed = 1f;
+    public int animation = 0;//0 mean none
 
     public Sentence()
     {
