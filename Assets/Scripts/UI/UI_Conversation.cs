@@ -136,6 +136,7 @@ public class UI_Conversation : MonoBehaviour
         canPassToNext = false;
         if(iconClick != null)
             iconClick.SetBool("On",false);
+//        Debug.Log("until here");
         textAppear = StartCoroutine(TextApproch(sent, (indexCharac != -1)));
     }
 
@@ -145,6 +146,7 @@ public class UI_Conversation : MonoBehaviour
     {
         float timeBetween = 1f / (sent.speed * defaultSpeed );
         string textDisplay = sent.textDisplay;
+        //Debug.Log("until here : "+ textDisplay.Length);
         for (int i = 0; i < textDisplay.Length; i++)
         {
             string s = (phold ? plhold : "");
@@ -156,11 +158,12 @@ public class UI_Conversation : MonoBehaviour
             s += "</color>";
             textToFill.text = s;
 
-            if (Input.GetMouseButtonDown(0))
+            if (i > 0 && Input.GetMouseButtonDown(0))
             {
                 break;
             }
 
+            
             yield return new WaitForSeconds(timeBetween);
             if (timeBetween < Time.deltaTime)
             {

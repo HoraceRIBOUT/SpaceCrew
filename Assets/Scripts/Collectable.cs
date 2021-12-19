@@ -12,7 +12,16 @@ public struct Stat
     public float pv;
     public float armor;
 
-
+    public static Stat operator +(Stat a ,Stat b)
+    {
+        a.speedMax += b.speedMax;
+        a.speedGain += b.speedGain;
+        a.friction += b.friction;
+        a.damage += b.damage;
+        a.pv += b.pv;
+        a.armor += b.armor;
+        return a;
+    }
 }
 [System.Serializable]
 public struct Rom_Stat
@@ -28,6 +37,13 @@ public struct Rom_Stat
         a.openess += b.openess;
         return a;
     }
+    public static Rom_Stat operator -(Rom_Stat a, Rom_Stat b)
+    {
+        a.affection -= b.affection;
+        a.love -= b.love;
+        a.openess -= b.openess;
+        return a;
+    }
 }
 //Probably also a item list
 public enum ItemCollectable
@@ -39,6 +55,7 @@ public enum ItemCollectable
     demonHeartDry,
     copperOre,
     ironOre,
+    fantomOre,
     waterBottle,
     fireCrystal,
     metalScrap,
@@ -52,33 +69,6 @@ public enum ItemCollectable
     turret,
     demonLazerEye,
 
-}
-
-[CreateAssetMenu(fileName = "Collectable", menuName = "CustomScriptableObject/Collectable", order = 1)]
-public class item : ScriptableObject
-{
-    public ItemCollectable type;
-    public Stat statToAdd;
-    public Rom_Stat romStatToAdd;
-
-    //
-    public bool giveMilit = false;
-    public Conversation convForMilit_try;
-    public Conversation convForMilit_conf;
-    public bool givePilot = false;
-    public Conversation convForPilot_try;
-    public Conversation convForPilot_conf;
-    public bool giveMecan = false;
-    public Conversation convForMecan_try;
-    public Conversation convForMecan_conf;
-
-    
-
-    public Sprite forSpace;
-    public Sprite forInv;
-
-    [Header("Special case")]
-    public Conversation onPickUp;
 }
 
 public class Collectable : MonoBehaviour

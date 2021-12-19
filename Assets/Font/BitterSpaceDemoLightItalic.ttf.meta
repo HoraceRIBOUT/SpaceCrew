@@ -1,0 +1,25 @@
+fileFormatVersion: 2
+guid: fd85936a16f84bc458e6160725d3e0c1
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Bitter Space Demo
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: f744bbe311b100241ade4767274006ca, type: 3}
+  - {fileID: 12800000, guid: 7b7f280b5aab437409d5a43d37f4ac67, type: 3}
+  - {fileID: 12800000, guid: 8c61300c2dc08274f9822fc1c866c00e, type: 3}
+  - {fileID: 12800000, guid: fc71340ba191a414990bb566b8e3c687, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

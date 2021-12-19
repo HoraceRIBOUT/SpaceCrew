@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[ExecuteAlways]
 public class CameraManager : MonoBehaviour
 {
     public float ZVal;
 
+    [Header("PostProcess")]
+    public Material postProcess_mat;
 
     public Transform player;
     public List<InterestPoint> interestList = new List<InterestPoint>();
@@ -20,6 +23,9 @@ public class CameraManager : MonoBehaviour
 
     public void Start()
     {
+        if (!Application.isPlaying)
+            return;
+
         interestList = new List<InterestPoint>();
         foreach(InterestPoint point in FindObjectsOfType<InterestPoint>())
         {
@@ -29,6 +35,10 @@ public class CameraManager : MonoBehaviour
 
     public void Update()
     {
+        if (!Application.isPlaying)
+            return;
+
+        
         ComputeDist();
 
         if (Vaisseau.instance.maxSpeed > 6)
@@ -65,5 +75,17 @@ public class CameraManager : MonoBehaviour
         }
 
         currentTarget.z = -10;
+    }
+
+    private void OnRenderImage(RenderTexture source, RenderTexture destination)
+    {
+        if (postProcess_mat != null)
+        {
+            RenderTexture tmp = destination;
+            Graphics.Blit(source, tmp, postProcess_mat);
+            Graphics.Blit(tmp, destination);
+        }
+        else
+            Graphics.Blit(source, destination);
     }
 }

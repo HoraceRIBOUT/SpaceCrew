@@ -39,6 +39,10 @@ public class Vaisseau : MonoBehaviour
     public float surchauffeMax = 2;
     private bool surchauffeOn = false;
 
+    [Header("Inventory")]
+    public List<item> inventory_forInsp = new List<item>();
+    public Dictionary<item, int> inventory = new Dictionary<item, int>();
+
     [Header("Visual")]
     public Transform visualMain;
     public SpriteRenderer surchauffeRenderer;
@@ -114,6 +118,9 @@ public class Vaisseau : MonoBehaviour
 
     public void ShootManagement()
     {
+        if (landingOn)
+            return;
+
         Vector3 mousePos = mainCam.ScreenToWorldPoint(Input.mousePosition);
         mousePos.z = this.transform.position.z;
 
@@ -176,17 +183,47 @@ public class Vaisseau : MonoBehaviour
 
     public void Collision_Collect(Collectable collect)
     {
-        if (collect.itemCollect.type == ItemCollectable.None)
+        AddInInv(collect.itemCollect);
+        collect.Death();
+    }
+
+    public void AddInInv(item itemAdd)
+    {
+        Debug.Log("TO DO : just imagine you have an inventory with now " + itemAdd.type + " in it.");
+        if (!inventory.ContainsKey(itemAdd))
         {
-            AddStat(collect.itemCollect.statToAdd);
-            collect.Death();
+            inventory.Add(itemAdd, 1);
+            inventory_forInsp.Add(itemAdd);
         }
         else
         {
-            //Add to inventory (with UI effect and all ! It will be glorious)
-            Debug.Log("TO DO : just imagine you have an inventory with now " + collect.itemCollect.type + " in it.");
-            collect.Death();
+            Debug.Log("already one version in it so add it !");
+            inventory[itemAdd] = inventory[itemAdd] + 1;
+            inventory_forInsp.Add(itemAdd);
         }
+
+        //Add a fx in ui to make sure that player know that he have collect an item
+    }
+    public void RemInInv(item itemAdd, int numberToRem = 1)
+    {
+        if (!inventory.ContainsKey(itemAdd))
+        {
+            Debug.LogError("Try to remove an item not in inventory!!!");
+        }
+        else
+        {
+            if (inventory[itemAdd] == 1)
+            {
+                inventory.Remove(itemAdd);
+            }
+            else
+            {
+                inventory[itemAdd] = inventory[itemAdd] - numberToRem;
+            }
+            
+        }
+
+        //Add a fx in ui to make sure that player know that he have collect an item
     }
 
 
@@ -223,12 +260,13 @@ public class Vaisseau : MonoBehaviour
         if (landingLerp >= 1)
         {
             landingLerp = 1;
-            Land();
         }
         else
         {
             landingLerp += Time.deltaTime * landingSpeed;
             landingLerp = Mathf.Clamp01(landingLerp);
+            if (landingLerp == 1)
+                Land();
         }
         visualMain.rotation = Quaternion.Lerp(landingRotation_start, landingRotation, landingRotCurve.Evaluate(landingLerp));
         this.transform.position = Vector3.Lerp(landingPoint_start, landingPoint, landingPosCurve.Evaluate(landingLerp));

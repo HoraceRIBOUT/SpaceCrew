@@ -9,7 +9,27 @@ public class Destroyable : MonoBehaviour
     public int numberItemDrop = 0;
     public bool notDouble = false;
 
+    public Vector3 movementRange = new Vector3();
+    public Vector3 movement = Vector3.zero;
+
+    public float rotSpeed = 0;
+
     public GameObject destroyFX;
+
+    public void Start()
+    {
+        if(movement == Vector3.zero)
+            movement = new Vector3(Random.Range(-movementRange.x, movementRange.x), Random.Range(-movementRange.y, movementRange.y), 0);
+        this.transform.Rotate(Vector3.forward * Random.Range(-180, 180));
+    }
+
+    public void Update()
+    {
+        this.transform.position += movement * Time.deltaTime;
+        this.transform.Rotate(Vector3.forward * rotSpeed * Time.deltaTime);
+    }
+
+
 
     public void GetHit(float damage = 1)
     {

@@ -57,6 +57,19 @@ public class FontSizeRatio : MonoBehaviour
             Resize();
             resize = false;
         }
+
+
+        if (Application.isPlaying)
+            FlashingString();
+    }
+
+    public Vector2 minMaxVisibility = Vector2.one;
+    public void FlashingString()
+    {
+        if(minMaxVisibility != Vector2.one)
+        {
+            myTMP_Text.alpha = Mathf.Lerp(minMaxVisibility.x, minMaxVisibility.y, Mathf.PerlinNoise(Time.time, myTMP_Text.text.Length));
+        }
     }
 
     void Resize()

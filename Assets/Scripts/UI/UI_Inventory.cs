@@ -8,7 +8,10 @@ public class UI_Inventory : MonoBehaviour
 {
     public bool resizeUI = true;
     public bool visible = false; private bool visible_mem;
+    public bool retestTheChildren = false;
 
+    Animator[] anis = new Animator[0];
+    public List<Image> orderedBox = new List<Image>();
 
     public Animator anima;
 
@@ -19,6 +22,12 @@ public class UI_Inventory : MonoBehaviour
     public GridLayoutGroup grid;
     public RectTransform secondCouche;
 
+    [Header("Validation")]
+    public bool validation_on = false;
+    public RectTransform val_element;
+    public float val_OpenSpeed = 4f;
+    public List<Button> val_toTurnOn;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +35,26 @@ public class UI_Inventory : MonoBehaviour
         visible_mem = visible;
         if(Application.isPlaying)
             GetComponent<CanvasGroup>().alpha = 1;
+
+        FillAnimAndSpriteBox();
+    }
+
+    public void FillAnimAndSpriteBox()
+    {
+        anis = grid.transform.GetComponentsInChildren<Animator>();
+        
+        orderedBox = new List<Image>();
+        foreach (Animator ani in anis)
+        {
+            string number = ani.name.Remove(0, "InventoryCase (".Length).Replace(")", "");
+            int.TryParse(number, out int res);
+
+            Image sR_Box = ani.transform.GetChild(1).GetComponent<Image>();
+            
+            orderedBox.Add(sR_Box);
+
+            continue;
+        }
     }
 
     // Update is called once per frame
@@ -35,7 +64,11 @@ public class UI_Inventory : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Tab))
             {
-                anima.SetBool("Visible", !anima.GetBool("Visible"));
+                validation_on = !visible;
+                if (visible)
+                    CloseInventory();
+                else
+                    OpenInventory();
             }
         }
 
@@ -50,7 +83,22 @@ public class UI_Inventory : MonoBehaviour
             WaveBoxInv(visible);
             visible_mem = visible;
         }
-        
+
+        if (retestTheChildren)
+        {
+            anis = null;
+            FillAnimAndSpriteBox();            
+            retestTheChildren = false;
+        }
+
+        UpdateValidation();
+    }
+    
+    public void UpdateValidation()
+    {
+        if (!Application.isPlaying)
+            return;
+        val_element.rotation = Quaternion.Lerp(val_element.rotation, Quaternion.Euler((validation_on ? 0 : 90), 0, 0), Time.deltaTime * val_OpenSpeed);
     }
 
     public void OpenInventory()
@@ -60,6 +108,9 @@ public class UI_Inventory : MonoBehaviour
         visible = true;
         WaveBoxInv(true);
         visible_mem = true;
+
+        Debug.Log("Let's go :");
+        UpdateInvVisual();
     }
 
     public void CloseInventory()
@@ -76,9 +127,9 @@ public class UI_Inventory : MonoBehaviour
     public float delayBetween = 0.05f;
     public void WaveBoxInv(bool visible)
     {
-        Animator[] anis = grid.transform.GetComponentsInChildren<Animator>();
         foreach (Animator ani in anis)
         {
+//            Debug.Log("Yes yes");
             string number = ani.name.Remove(0,"InventoryCase (".Length).Replace(")", "");
             int.TryParse(number, out int res);
             float toWait = (res % 10) + ((int)res / 10);
@@ -92,6 +143,27 @@ public class UI_Inventory : MonoBehaviour
         yield return new WaitForSeconds(timer);
         ani.SetBool("Dis", !visible);
     }
+    
+    public bool forceUpdateInv = false;
+    public void UpdateInvVisual()
+    {
+        Dictionary<item, int> inv = Vaisseau.instance.inventory;
+
+        int index = 0;
+        foreach (KeyValuePair<item,int> pair in inv)
+        {
+            orderedBox[index].GetComponent<Item_Draggable>().itemHere = pair.Key;
+            orderedBox[index].sprite = pair.Key.forInv;
+            orderedBox[index].color = pair.Key.color;
+            index++;
+        }
+        for (int i = index; i < orderedBox.Count; i++)
+        {
+            orderedBox[i].sprite = null;
+            orderedBox[i].color = Color.clear;
+        }
+    }
+
 
     public void Resize()
     {

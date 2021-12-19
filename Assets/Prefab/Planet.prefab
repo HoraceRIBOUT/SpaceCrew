@@ -93,6 +93,7 @@ GameObject:
   - component: {fileID: 8970617789688955149}
   - component: {fileID: 8970617789688955148}
   - component: {fileID: 5778685784079656942}
+  - component: {fileID: 7551208307391759294}
   m_Layer: 0
   m_Name: Planet
   m_TagString: Untagged
@@ -143,3 +144,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a4d204410764ae4e8165cebd84c7df2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  size: 0
+--- !u!114 &7551208307391759294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8970617789688955146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ba90ccf677efa54c9b8a2fafec93a18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pv: 25000
+  dropableObject:
+  - {fileID: 5824727993675674810, guid: 239df1873c20b5f4fbdf7cb5fde8de25, type: 3}
+  numberItemDrop: 52
+  notDouble: 0
+  destroyFX: {fileID: 0}

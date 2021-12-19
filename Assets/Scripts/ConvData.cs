@@ -6,4 +6,5 @@ using UnityEngine;
 public class ConvData : ScriptableObject
 {
     public Conversation entranceConv;
+    public Conversation afterTutoConv;
 }

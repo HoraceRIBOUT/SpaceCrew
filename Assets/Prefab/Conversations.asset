@@ -49,27 +49,36 @@ MonoBehaviour:
       animation: 0
     - character: 3
       indexFace: 0
-      bgColor: {r: 0.29792634, g: 0.59267855, b: 0.6132076, a: 1}
+      bgColor: {r: 0.21462265, g: 0.81824887, b: 0.8584906, a: 1}
       textDisplay: OH ! Can you try shoot at the asteroid!!!
       speed: 4
       animation: 3
     - character: 2
       indexFace: 0
-      bgColor: {r: 0.6039216, g: 0.4784314, b: 0.4784314, a: 1}
+      bgColor: {r: 0.20754719, g: 0.15957637, b: 0.15957637, a: 1}
       textDisplay: ...
       speed: 0.1
       animation: 0
     - character: 3
       indexFace: 0
-      bgColor: {r: 0.29803923, g: 0.5921569, b: 0.6117647, a: 1}
+      bgColor: {r: 0.51775545, g: 0.6072418, b: 0.6132076, a: 1}
       textDisplay: To... exercice with the shooting...?
       speed: 0.6
       animation: 0
     - character: 2
       indexFace: 0
-      bgColor: {r: 0.6039216, g: 0.4784314, b: 0.4784314, a: 1}
-      textDisplay: . . . Why not, exercice on the asteroid, it's full of ressources
-        to collect to.
+      bgColor: {r: 0.7264151, g: 0.58592916, b: 0.58592916, a: 1}
+      textDisplay: . . . Why not.
       speed: 1
       animation: 0
+    - character: 2
+      indexFace: 0
+      bgColor: {r: 0.6039216, g: 0.4784314, b: 0.4784314, a: 1}
+      textDisplay: Try shoot on the asteroid. There are full of ressources. Collect
+        them afterward.
+      speed: 1
+      animation: 0
+    currentIndex: 0
+  afterTutoConv:
+    sentences: []
     currentIndex: 0
