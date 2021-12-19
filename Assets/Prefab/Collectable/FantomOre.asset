@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FantomOre
   m_EditorClassIdentifier: 
   type: 7
-  giveMilit: 1
+  giveMilit: 0
   convForMilit_try:
     sentences: []
     currentIndex: 0

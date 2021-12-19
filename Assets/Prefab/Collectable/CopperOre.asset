@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CopperOre
   m_EditorClassIdentifier: 
   type: 5
-  giveMilit: 1
+  giveMilit: 0
   convForMilit_try:
     sentences: []
     currentIndex: 0
@@ -33,7 +33,21 @@ MonoBehaviour:
     openess: 0
   givePilot: 1
   convForPilot_try:
-    sentences: []
+    sentences:
+    - character: 1
+      indexFace: 1
+      bgColor: {r: 1, g: 0.93849057, b: 0.23113209, a: 0.41960785}
+      textDisplay: 'Oh, some copper! Could be really usefull for the brake. '
+      speed: 1
+      animation: 0
+      animName: 
+    - character: 1
+      indexFace: 0
+      bgColor: {r: 1, g: 0.93849057, b: 0.23113209, a: 0.41960785}
+      textDisplay: Could you... Could you give it to the pilot chamber?
+      speed: 1
+      animation: 3
+      animName: 
     currentIndex: 0
   convForPilot_conf:
     sentences: []
@@ -41,7 +55,7 @@ MonoBehaviour:
   statToAddPilot:
     speedMax: 0
     speedGain: 0
-    friction: 0
+    friction: -0.01
     damage: 0
     pv: 0
     armor: 0
@@ -49,7 +63,7 @@ MonoBehaviour:
     affection: 0
     love: 0
     openess: 0
-  giveMecan: 1
+  giveMecan: 0
   convForMecan_try:
     sentences: []
     currentIndex: 0

@@ -43,12 +43,22 @@ public class Vaisseau : MonoBehaviour
     public List<item> inventory_forInsp = new List<item>();
     public Dictionary<item, int> inventory = new Dictionary<item, int>();
 
+    [Header("Chara")]
+    public Dictionary<Character, Rom_Stat> romStatPerChara = new Dictionary<Character, Rom_Stat>();
+
     [Header("Visual")]
     public Transform visualMain;
     public SpriteRenderer surchauffeRenderer;
     public Gradient colorSurchauffe;
 
     public ConvData convData;
+
+    [Header("Tuto")]
+    public TMPro.TMP_Text tutoMove;
+    public TMPro.TMP_Text tutoShoot;
+    public TMPro.TMP_Text tutoShootAndClick;
+    public bool moveDOne;
+    public bool shootDone;
 
     // Start is called before the first frame update
     void Start()
@@ -75,9 +85,14 @@ public class Vaisseau : MonoBehaviour
             MovementManager();
 
             ShootManagement();
+
+
+            TutorialManagement();
+
         }
         UpdateVisual();
     }
+
 
     public void MovementManager()
     {
@@ -115,7 +130,7 @@ public class Vaisseau : MonoBehaviour
 
         surchauffeRenderer.color = colorSurchauffe.Evaluate((surchauffe / surchauffeMax) * (surchauffe / surchauffeMax));
     }
-
+    
     public void ShootManagement()
     {
         if (landingOn)
@@ -148,43 +163,38 @@ public class Vaisseau : MonoBehaviour
     }
 
 
-    public void AddStat(Stat statToAdd)
+
+    public void ApplyItem(item itemToApply, Character chara)
     {
-        maxSpeed += statToAdd.speedMax;
-        speedGainPerSecond += statToAdd.speedGain;
-        friction += statToAdd.friction;
-        damageMult += statToAdd.damage;
-        pv += statToAdd.pv;
-        armor += statToAdd.armor;
-    }
-
-
-
-
-    #region collisions
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        Collectable collect = collision.GetComponent<Collectable>();
-        if (collect != null)
+        switch (chara)
         {
-            Collision_Collect(collect);
+            case Character.pilot:
+                romStatPerChara[chara] += itemToApply.romStatToAddToPilot;
+                AddStat(itemToApply.statToAddPilot);
+
+                break;
+            case Character.milit:
+                romStatPerChara[chara] += itemToApply.romStatToAddToMilit;
+                AddStat(itemToApply.statToAddMilit);
+
+                break;
+            case Character.mecan:
+                romStatPerChara[chara] += itemToApply.romStatToAddToMecan;
+                AddStat(itemToApply.statToAddMecan);
+
+                break;
+            case Character.None:
+            case Character.alien:
+            default:
+                break;
         }
+
+        UpdateLandConvList();
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    public void UpdateLandConvList()
     {
-        Planet planet = collision.gameObject.GetComponent<Planet>();
-        if (planet != null)
-        {
-            Collision_Planet(planet);
-        }
-    }
-
-    public void Collision_Collect(Collectable collect)
-    {
-        AddInInv(collect.itemCollect);
-        collect.Death();
+        convData.UpdateLandConvList();
     }
 
     public void AddInInv(item itemAdd)
@@ -220,10 +230,76 @@ public class Vaisseau : MonoBehaviour
             {
                 inventory[itemAdd] = inventory[itemAdd] - numberToRem;
             }
-            
+
         }
 
         //Add a fx in ui to make sure that player know that he have collect an item
+    }
+
+
+    public void TutorialManagement()
+    {
+        if(!moveDOne || !shootDone)
+        {
+            if (currentSpeed.magnitude == maxSpeed)
+                moveDOne = true;
+
+            if (Input.GetMouseButtonDown(0))
+                shootDone = true;
+
+            if (moveDOne && shootDone)
+                ui_man.conversation.StartThisConversation(convData.afterTutoConv);
+        }
+
+        if (moveDOne && tutoMove.alpha > 0)
+            tutoMove.alpha -= Time.deltaTime*0.5f;
+
+        if (shootDone && tutoShoot.alpha > 0)
+        {
+            tutoShoot.alpha -= Time.deltaTime * 0.5f;
+            tutoShootAndClick.alpha -= Time.deltaTime * 0.5f;
+        }
+
+    }
+
+    public void AddStat(Stat statToAdd)
+    {
+        maxSpeed += statToAdd.speedMax;
+        speedGainPerSecond += statToAdd.speedGain;
+        friction += statToAdd.friction;
+        damageMult += statToAdd.damage;
+        pv += statToAdd.pv;
+        armor += statToAdd.armor;
+        surchauffeMax += statToAdd.surchauffeMax;
+    }
+
+
+
+
+    #region collisions
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Collectable collect = collision.GetComponent<Collectable>();
+        if (collect != null)
+        {
+            Collision_Collect(collect);
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Planet planet = collision.gameObject.GetComponent<Planet>();
+        if (planet != null)
+        {
+            Collision_Planet(planet);
+        }
+    }
+
+    public void Collision_Collect(Collectable collect)
+    {
+        AddInInv(collect.itemCollect);
+        collect.Death();
     }
 
 
@@ -275,7 +351,26 @@ public class Vaisseau : MonoBehaviour
     public void Land()
     {
         //if conversation : make conv before landing
+        if(convData.landingConv.Count != 0)
+        {
+            if(convData.landingConv.Count == 1)
+            {
+                convData.landingConv[0].actionToPerformAtEnd += OpenInventory;
+                ui_man.conversation.StartThisConversation(convData.landingConv[0]);
+                return;
+            }
+            int randomRange = Random.Range(0, 100);
+            if(randomRange > 50)
+            {
+                int index = Random.Range(0, convData.landingConv.Count - 1);
+                convData.landingConv[index].actionToPerformAtEnd += OpenInventory;
+                ui_man.conversation.StartThisConversation(convData.landingConv[index]);
+                return;
+            }
+        }
+
         OpenInventory();
+
     }
 
     public void OpenInventory()

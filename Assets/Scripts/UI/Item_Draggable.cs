@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 public class Item_Draggable : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
     Transform initialParent = null;
+    public UnityEngine.UI.Image sR;
     public RectTransform rect;
     public bool dragOn = false;
 
@@ -18,11 +19,23 @@ public class Item_Draggable : MonoBehaviour, IDragHandler, IBeginDragHandler, IE
         initialParent = this.transform.parent;
         this.transform.SetParent(Vaisseau.instance.ui_man.canvas);//maybe canvas???
         rect = this.GetComponent<RectTransform>();
+        sR.raycastTarget = false;
+
+        Vaisseau.instance.ui_man.inventory.ChangePwpUp(itemHere);
     }
 
+    public void Update()
+    {
+        if (dragOn)
+        {
+            Vector3 midSize = rect.rect.size / 2f;
+            midSize.x = -midSize.x;
+            this.transform.position = Input.mousePosition + midSize;
+        }
+    }
     public void OnDrag(PointerEventData eventData)
     {
-        this.transform.position = Input.mousePosition + (Vector3)rect.rect.size / 2f;
+       
     }
 
     public void OnEndDrag(PointerEventData eventData)
@@ -30,6 +43,14 @@ public class Item_Draggable : MonoBehaviour, IDragHandler, IBeginDragHandler, IE
         dragOn = false;
         this.transform.SetParent(initialParent);
         rect.anchoredPosition = Vector3.zero;
+        sR.raycastTarget = true;
+        Vaisseau.instance.ui_man.inventory.ChangePwpUp_Default();
+
+        foreach(GameObject gO in eventData.hovered)
+        {
+            Debug.Log("gO = " + gO, gO);
+        }
+        Debug.Log("DragEnd. " + eventData.position);
     }
 
 }

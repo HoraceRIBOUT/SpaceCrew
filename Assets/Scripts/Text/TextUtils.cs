@@ -22,7 +22,7 @@ public class Conversation
     public int currentIndex = 0;
 }
 
-[Serializable]
+[Serializable][ExecuteAlways]
 public class Sentence 
 {
     //maybe add "play music" or "wait for X second" or "play animation" to add more juice
@@ -32,7 +32,24 @@ public class Sentence
     [TextArea]
     public string textDisplay = "";
     public float speed = 1f;
-    public int animation = 0;//0 mean none
+    public AnimName animation = AnimName.none;
+
+    public enum AnimName
+    {
+        none = 0,
+        Squish,
+        Shake,
+        Jump,
+        QuickRot,
+        Forward = 5,
+        ForwardRot,
+    }
+    
+    [ContextMenu("Test sentence")]
+    public void Test()
+    {
+        GameObject.FindObjectOfType<UI_Conversation>().DisplaySentence(this);
+    }
 
     public Sentence()
     {
@@ -43,4 +60,6 @@ public class Sentence
         textDisplay = "";
         speed = 1f;
     }
+
+
 }

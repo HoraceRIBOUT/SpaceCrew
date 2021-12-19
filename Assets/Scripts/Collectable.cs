@@ -11,6 +11,7 @@ public struct Stat
     public float damage;
     public float pv;
     public float armor;
+    public float surchauffeMax;
 
     public static Stat operator +(Stat a ,Stat b)
     {
@@ -20,6 +21,7 @@ public struct Stat
         a.damage += b.damage;
         a.pv += b.pv;
         a.armor += b.armor;
+        a.surchauffeMax += b.surchauffeMax;
         return a;
     }
 }

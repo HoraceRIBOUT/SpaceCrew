@@ -11,12 +11,12 @@ public class UI_Inventory : MonoBehaviour
     public bool retestTheChildren = false;
 
     Animator[] anis = new Animator[0];
-    public List<Image> orderedBox = new List<Image>();
+    public List<Item_Draggable> orderedBox = new List<Item_Draggable>();
 
     public Animator anima;
 
     [Header("UpperPart")]
-    public List<RectTransform> herosPart;
+    public List<PowerUp_Dropable> herosPart;
 
     [Header("DownPart")]
     public GridLayoutGroup grid;
@@ -43,13 +43,13 @@ public class UI_Inventory : MonoBehaviour
     {
         anis = grid.transform.GetComponentsInChildren<Animator>();
         
-        orderedBox = new List<Image>();
+        orderedBox = new List<Item_Draggable>();
         foreach (Animator ani in anis)
         {
             string number = ani.name.Remove(0, "InventoryCase (".Length).Replace(")", "");
             int.TryParse(number, out int res);
 
-            Image sR_Box = ani.transform.GetChild(1).GetComponent<Image>();
+            Item_Draggable sR_Box = ani.GetComponentInChildren<Item_Draggable>();
             
             orderedBox.Add(sR_Box);
 
@@ -64,7 +64,6 @@ public class UI_Inventory : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Tab))
             {
-                validation_on = !visible;
                 if (visible)
                     CloseInventory();
                 else
@@ -99,6 +98,60 @@ public class UI_Inventory : MonoBehaviour
         if (!Application.isPlaying)
             return;
         val_element.rotation = Quaternion.Lerp(val_element.rotation, Quaternion.Euler((validation_on ? 0 : 90), 0, 0), Time.deltaTime * val_OpenSpeed);
+    }
+
+    public void Validation(bool on)
+    {
+        validation_on = on;
+        foreach(Button butt in val_toTurnOn)
+        {
+            butt.interactable = on;
+        }
+    }
+
+    [HideInInspector] public PowerUp_Dropable pwpUp = null;
+    public void ButtonOK()
+    {
+        //For now, only one case :
+        if(pwpUp != null)
+        {
+            pwpUp.Conf();
+        }
+
+    }
+    public void ButtonCancel()
+    {
+
+    }
+
+    public void ChangePwpUp(item itemType)
+    {
+        foreach (PowerUp_Dropable dropZone in herosPart)
+        {
+            switch (dropZone.chara)
+            {
+                case Character.pilot:
+                    dropZone.SetGray(!itemType.givePilot);
+                    break;
+                case Character.milit:
+                    dropZone.SetGray(!itemType.giveMilit);
+                    break;
+                case Character.mecan:
+                    dropZone.SetGray(!itemType.giveMecan);
+                    break;
+                case Character.None:
+                case Character.alien:
+                default:
+                    break;
+            }
+        }
+    }
+    public void ChangePwpUp_Default()
+    {
+        foreach (PowerUp_Dropable dropZone in herosPart)
+        {
+            dropZone.SetGray(false);
+        }
     }
 
     public void OpenInventory()
@@ -152,15 +205,15 @@ public class UI_Inventory : MonoBehaviour
         int index = 0;
         foreach (KeyValuePair<item,int> pair in inv)
         {
-            orderedBox[index].GetComponent<Item_Draggable>().itemHere = pair.Key;
-            orderedBox[index].sprite = pair.Key.forInv;
-            orderedBox[index].color = pair.Key.color;
+            orderedBox[index].itemHere = pair.Key;
+            orderedBox[index].sR.sprite = pair.Key.forInv;
+            orderedBox[index].sR.color = pair.Key.color;
             index++;
         }
         for (int i = index; i < orderedBox.Count; i++)
         {
-            orderedBox[i].sprite = null;
-            orderedBox[i].color = Color.clear;
+            orderedBox[i].sR.sprite = null;
+            orderedBox[i].sR.color = Color.clear;
         }
     }
 

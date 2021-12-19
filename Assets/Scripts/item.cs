@@ -8,16 +8,19 @@ public class item : ScriptableObject
     public ItemCollectable type;
 
     //
+    [Header("Milit")]
     public bool giveMilit = false;
     public Conversation convForMilit_try;
     public Conversation convForMilit_conf;
     public Stat statToAddMilit;
     public Rom_Stat romStatToAddToMilit;
+    [Header("Pilot")]
     public bool givePilot = false;
     public Conversation convForPilot_try;
     public Conversation convForPilot_conf;
     public Stat statToAddPilot;
     public Rom_Stat romStatToAddToPilot;
+    [Header("Mecan")]
     public bool giveMecan = false;
     public Conversation convForMecan_try;
     public Conversation convForMecan_conf;
@@ -31,4 +34,7 @@ public class item : ScriptableObject
 
     [Header("Special case")]
     public Conversation onPickUp;
+
+    public Turret addTuret = null;
+
 }

@@ -92,6 +92,12 @@ public class UI_Conversation : MonoBehaviour
     {
         Sentence sent = currentConversationDisplayed.sentences[currentConversationDisplayed.currentIndex];
         Debug.Log("Update conversation (" + currentConversationDisplayed.currentIndex + ") : " + sent.textDisplay);
+        DisplaySentence(sent);
+    }
+
+
+    public void DisplaySentence(Sentence sent)
+    {
         int indexCharac = (int)sent.character - 1;
         convAnim.SetBool("Icon", (indexCharac != -1));
         convAnim.SetBool("Visible", true);
@@ -101,7 +107,7 @@ public class UI_Conversation : MonoBehaviour
             Debug.Log("indexCharac " + indexCharac);
             iconMain.sprite = characterSprite[indexCharac];
             if (iconMainAnim != null)
-                iconMainAnim.SetInteger("State", sent.animation);
+                iconMainAnim.SetInteger("State", (int)sent.animation);
             iconShad.sprite = characterShadowSprite[indexCharac];
             switch (sent.character)
             {
@@ -186,6 +192,11 @@ public class UI_Conversation : MonoBehaviour
         {
             Debug.Log("Finish here !");
             Finish();
+            if(currentConversationDisplayed.actionToPerformAtEnd != null)
+            {
+                currentConversationDisplayed.actionToPerformAtEnd.Invoke();
+                currentConversationDisplayed.actionToPerformAtEnd = null;
+            }
             currentConversationDisplayed.currentIndex = 0;
             return false;
         }

@@ -7,4 +7,35 @@ public class ConvData : ScriptableObject
 {
     public Conversation entranceConv;
     public Conversation afterTutoConv;
+
+
+    public List<Conversation> landingConv = new List<Conversation>();
+
+    public Conversation firstLandingConv;
+    public List<Conversation> defaultLandingConv = new List<Conversation>();
+    public List<Conversation> land_FriendMilit = new List<Conversation>();
+    public List<Conversation> land_FriendPilot = new List<Conversation>();
+    public List<Conversation> land_FriendMecan = new List<Conversation>();
+    public List<Conversation> land_FriendMilitPilot = new List<Conversation>();
+    public List<Conversation> land_FriendPilotMecan = new List<Conversation>();
+    public List<Conversation> land_FriendMecanMilit = new List<Conversation>();
+    public List<Conversation> land_FriendMilitPilotMecan = new List<Conversation>();
+
+    public void Start()
+    {
+        landingConv = new List<Conversation>(); landingConv.Add(firstLandingConv);
+        firstLandingConv.actionToPerformAtEnd += FirstLandDone;
+    }
+
+    public void FirstLandDone()
+    {
+
+    }
+
+    public void UpdateLandConvList()
+    {
+
+    }
+
+
 }

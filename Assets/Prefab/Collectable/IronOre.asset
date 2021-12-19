@@ -44,7 +44,13 @@ MonoBehaviour:
       animation: 0
     currentIndex: 0
   convForMilit_conf:
-    sentences: []
+    sentences:
+    - character: 2
+      indexFace: 0
+      bgColor: {r: 0.6039216, g: 0.4784314, b: 0.4784314, a: 0.62352943}
+      textDisplay: Oh... Ok. Let's make a medal.
+      speed: 0.5
+      animation: 0
     currentIndex: 0
   statToAddMilit:
     speedMax: 0
@@ -57,7 +63,7 @@ MonoBehaviour:
     affection: 0
     love: 0
     openess: 0
-  givePilot: 1
+  givePilot: 0
   convForPilot_try:
     sentences: []
     currentIndex: 0
@@ -75,7 +81,7 @@ MonoBehaviour:
     affection: 0
     love: 0
     openess: 0
-  giveMecan: 1
+  giveMecan: 0
   convForMecan_try:
     sentences: []
     currentIndex: 0
