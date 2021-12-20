@@ -17,6 +17,7 @@ public class UI_Inventory : MonoBehaviour
 
     [Header("UpperPart")]
     public List<PowerUp_Dropable> herosPart;
+    public UI_VaisseauStat vaisseauStat;
 
     [Header("DownPart")]
     public GridLayoutGroup grid;
@@ -117,11 +118,15 @@ public class UI_Inventory : MonoBehaviour
         {
             pwpUp.Conf();
         }
-
+        Validation(false);
     }
     public void ButtonCancel()
     {
-
+        if (pwpUp != null)
+        {
+            pwpUp.Refuse();
+        }
+        Validation(false);
     }
 
     public void ChangePwpUp(item itemType)
@@ -164,6 +169,8 @@ public class UI_Inventory : MonoBehaviour
 
         Debug.Log("Let's go :");
         UpdateInvVisual();
+        Stat st = Vaisseau.instance.getStat();
+        vaisseauStat.VisualStat(st, st);
     }
 
     public void CloseInventory()
@@ -212,6 +219,7 @@ public class UI_Inventory : MonoBehaviour
         }
         for (int i = index; i < orderedBox.Count; i++)
         {
+            orderedBox[index].itemHere = null;
             orderedBox[i].sR.sprite = null;
             orderedBox[i].sR.color = Color.clear;
         }

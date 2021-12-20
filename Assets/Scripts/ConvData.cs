@@ -21,15 +21,22 @@ public class ConvData : ScriptableObject
     public List<Conversation> land_FriendMecanMilit = new List<Conversation>();
     public List<Conversation> land_FriendMilitPilotMecan = new List<Conversation>();
 
-    public void Start()
+    public void Initialize()
     {
-        landingConv = new List<Conversation>(); landingConv.Add(firstLandingConv);
+        landingConv = new List<Conversation>();
+        landingConv.Add(firstLandingConv);
         firstLandingConv.actionToPerformAtEnd += FirstLandDone;
     }
 
     public void FirstLandDone()
     {
+        firstLandingConv.actionToPerformAtEnd = null;
 
+        landingConv.RemoveAt(0);
+        foreach(Conversation c in defaultLandingConv)
+        {
+            landingConv.Add(c);
+        }
     }
 
     public void UpdateLandConvList()

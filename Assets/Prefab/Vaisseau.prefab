@@ -616,6 +616,7 @@ MonoBehaviour:
   tutoShootAndClick: {fileID: 922970915}
   moveDOne: 0
   shootDone: 0
+  gatherRessourceDone: 0
   landingOn: 0
   landingPoint: {x: 0, y: 0, z: 0}
   landingOffset: 0.2
@@ -1465,6 +1466,18 @@ PrefabInstance:
     - target: {fileID: 8987354706874177536, guid: 351dead96cb9e294bad125d630468c30, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8987354706874177537, guid: 351dead96cb9e294bad125d630468c30, type: 3}
+      propertyPath: chauffe
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8987354706874177537, guid: 351dead96cb9e294bad125d630468c30, type: 3}
+      propertyPath: cooldown
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8987354706874177537, guid: 351dead96cb9e294bad125d630468c30, type: 3}
+      propertyPath: shootSpeed
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8987354706874177537, guid: 351dead96cb9e294bad125d630468c30, type: 3}
       propertyPath: offsetDirection.z

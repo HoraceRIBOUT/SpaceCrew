@@ -145,3 +145,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemCollect: {fileID: 11400000, guid: 1edd5e4ef5e033c41a149000dbdf0ffc, type: 2}
   sR: {fileID: 7081163551565088738}
+  movementRange: {x: 0.05, y: 0.05, z: 0}
+  movement: {x: 0, y: 0, z: 0}
+  rotSpeed: 12
+  destroyFX: {fileID: 0}

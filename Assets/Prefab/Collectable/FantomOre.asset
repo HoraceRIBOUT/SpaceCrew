@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: FantomOre
   m_EditorClassIdentifier: 
   type: 7
+  numberPossible: -1
   giveMilit: 0
   convForMilit_try:
     sentences: []
@@ -26,45 +27,116 @@ MonoBehaviour:
     friction: 0
     damage: 0
     pv: 0
+    pvMax: 0
     armor: 0
+    surchauffeMax: 0
   romStatToAddToMilit:
     affection: 0
     love: 0
     openess: 0
   givePilot: 1
   convForPilot_try:
-    sentences: []
+    sentences:
+    - character: 1
+      indexFace: 5
+      bgColor: {r: 1, g: 0.9683034, b: 0.5518868, a: 179}
+      textDisplay: OOOH! Some fantom ore???
+      speed: 1
+      animation: 0
+    - character: 1
+      indexFace: 8
+      bgColor: {r: 1, g: 0.9686275, b: 0.5529412, a: 179}
+      textDisplay: It's so rare! Can I have it?
+      speed: 1
+      animation: 0
+    - character: 1
+      indexFace: 7
+      bgColor: {r: 1, g: 0.9686275, b: 0.5529412, a: 179}
+      textDisplay: The strange effect (fantom) on it can make the whole ship goes
+        immediately to the full speed! It give the feeling of gliding with full control
+        of the ship!
+      speed: 1
+      animation: 0
+    - character: 1
+      indexFace: 8
+      bgColor: {r: 1, g: 0.9686275, b: 0.5529412, a: 179}
+      textDisplay: It's a weird feeling to pilot a fantom ship but I love it so much.
+        I really want to try...
+      speed: 1
+      animation: 0
     currentIndex: 0
   convForPilot_conf:
-    sentences: []
+    sentences:
+    - character: 1
+      indexFace: 2
+      bgColor: {r: 1, g: 0.9686275, b: 0.5529412, a: 179}
+      textDisplay: Oh I have to go test it, thank you again, oh my, I have to...
+        Quick, test test test!
+      speed: 1
+      animation: 3
     currentIndex: 0
   statToAddPilot:
     speedMax: 0
     speedGain: 0
-    friction: 0
+    friction: -0.5
     damage: 0
     pv: 0
+    pvMax: 0
     armor: 0
+    surchauffeMax: 0
   romStatToAddToPilot:
     affection: 0
-    love: 0
+    love: 3
     openess: 0
   giveMecan: 1
   convForMecan_try:
-    sentences: []
+    sentences:
+    - character: 3
+      indexFace: 0
+      bgColor: {r: 0.6084906, g: 0.98800784, b: 1, a: 179}
+      textDisplay: Wow! Fantom ore?
+      speed: 1
+      animation: 0
+    - character: 3
+      indexFace: 4
+      bgColor: {r: 0.60784316, g: 0.98823535, b: 1, a: 179}
+      textDisplay: 'I always wanted to reinforce a ship with some! It make the bullet
+        slide on the ship! '
+      speed: 1
+      animation: 0
+    - character: 3
+      indexFace: 0
+      bgColor: {r: 0.60784316, g: 0.98823535, b: 1, a: 179}
+      textDisplay: Can I have some? I know it's rare but... asking cost nothing!
+      speed: 1
+      animation: 0
     currentIndex: 0
   convForMecan_conf:
-    sentences: []
+    sentences:
+    - character: 3
+      indexFace: 3
+      bgColor: {r: 0.60784316, g: 0.98823535, b: 1, a: 179}
+      textDisplay: Oh? Really?
+      speed: 1
+      animation: 0
+    - character: 3
+      indexFace: 0
+      bgColor: {r: 0.60784316, g: 0.98823535, b: 1, a: 179}
+      textDisplay: Ok let's go! Let's try new thing!
+      speed: 1
+      animation: 0
     currentIndex: 0
   statToAddMecan:
     speedMax: 0
     speedGain: 0
     friction: 0
     damage: 0
-    pv: 0
+    pv: 50
+    pvMax: 0
     armor: 0
+    surchauffeMax: 0
   romStatToAddToMecan:
-    affection: 0
+    affection: 0.5
     love: 0
     openess: 0
   color: {r: 1, g: 1, b: 1, a: 1}
@@ -73,3 +145,4 @@ MonoBehaviour:
   onPickUp:
     sentences: []
     currentIndex: 0
+  addTuret: {fileID: 0}

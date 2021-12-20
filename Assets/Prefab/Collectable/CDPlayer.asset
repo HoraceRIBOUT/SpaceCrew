@@ -1,0 +1,133 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42fd991fc79f6b64099071e2a25f2577, type: 3}
+  m_Name: CDPlayer
+  m_EditorClassIdentifier: 
+  type: 1
+  numberPossible: 1
+  giveMilit: 0
+  convForMilit_try:
+    sentences: []
+    currentIndex: 0
+  convForMilit_conf:
+    sentences: []
+    currentIndex: 0
+  statToAddMilit:
+    speedMax: 0
+    speedGain: 0
+    friction: 0
+    damage: 0
+    pv: 0
+    pvMax: 0
+    armor: 0
+    surchauffeMax: 0
+  romStatToAddToMilit:
+    affection: 0
+    love: 0
+    openess: 0
+  givePilot: 1
+  convForPilot_try:
+    sentences:
+    - character: 1
+      indexFace: 5
+      bgColor: {r: 1, g: 0.9393068, b: 0.41037738, a: 0.45490196}
+      textDisplay: Oh ? What is it ?
+      speed: 1
+      animation: 0
+    - character: 1
+      indexFace: 2
+      bgColor: {r: 1, g: 0.94117653, b: 0.41176474, a: 0.5019608}
+      textDisplay: A CD player? I never seen one before...
+      speed: 1
+      animation: 0
+    - character: 1
+      indexFace: 8
+      bgColor: {r: 1, g: 0.94117653, b: 0.41176474, a: 0.59607846}
+      textDisplay: I am... intrigued... Nobody else want it? If not, can... can I
+        have it?
+      speed: 1
+      animation: 0
+    currentIndex: 0
+  convForPilot_conf:
+    sentences:
+    - character: 1
+      indexFace: 2
+      bgColor: {r: 0.7490196, g: 0.71312994, b: 0.5294118, a: 179}
+      textDisplay: Tha-Thank you!
+      speed: 1
+      animation: 0
+    - character: 0
+      indexFace: 0
+      bgColor: {r: 1, g: 0.9426285, b: 0.5235849, a: 179}
+      textDisplay: I will tell you if I find any cool music on it or thing like that!
+      speed: 1
+      animation: 0
+    - character: 2
+      indexFace: 0
+      bgColor: {r: 1, g: 0.94117653, b: 0.5254902, a: 179}
+      textDisplay: . . .
+      speed: 0.9
+      animation: 0
+    - character: 1
+      indexFace: 5
+      bgColor: {r: 0.4339623, g: 0.42217597, b: 0.3500356, a: 179}
+      textDisplay: (wait... that's mean having to initiate the social interaction!
+        I'm not ready to it!)
+      speed: 1
+      animation: 0
+    - character: 1
+      indexFace: 13
+      bgColor: {r: 0.43529415, g: 0.42352945, b: 0.34901962, a: 179}
+      textDisplay: (... oh f...)
+      speed: 1
+      animation: 0
+    currentIndex: 0
+  statToAddPilot:
+    speedMax: 0
+    speedGain: 0
+    friction: 0
+    damage: 0
+    pv: 0
+    pvMax: 0
+    armor: 0
+    surchauffeMax: 0
+  romStatToAddToPilot:
+    affection: 2
+    love: 0
+    openess: 5
+  giveMecan: 1
+  convForMecan_try:
+    sentences: []
+    currentIndex: 0
+  convForMecan_conf:
+    sentences: []
+    currentIndex: 0
+  statToAddMecan:
+    speedMax: 0
+    speedGain: 0
+    friction: 0
+    damage: 0
+    pv: 0
+    pvMax: 0
+    armor: 0
+    surchauffeMax: 0
+  romStatToAddToMecan:
+    affection: 0
+    love: 0
+    openess: 0
+  color: {r: 1, g: 1, b: 1, a: 1}
+  forSpace: {fileID: 21300000, guid: 53ee3c0dd8d9fa842b15d25b78eee5d1, type: 3}
+  forInv: {fileID: 21300000, guid: 53ee3c0dd8d9fa842b15d25b78eee5d1, type: 3}
+  onPickUp:
+    sentences: []
+    currentIndex: 0
+  addTuret: {fileID: 0}

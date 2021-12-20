@@ -14,6 +14,9 @@ public class Item_Draggable : MonoBehaviour, IDragHandler, IBeginDragHandler, IE
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        if (itemHere == null)
+            return;
+
         Debug.Log("True On begin drag");
         dragOn = true;
         initialParent = this.transform.parent;
@@ -45,12 +48,14 @@ public class Item_Draggable : MonoBehaviour, IDragHandler, IBeginDragHandler, IE
         rect.anchoredPosition = Vector3.zero;
         sR.raycastTarget = true;
         Vaisseau.instance.ui_man.inventory.ChangePwpUp_Default();
+        
+    }
 
-        foreach(GameObject gO in eventData.hovered)
-        {
-            Debug.Log("gO = " + gO, gO);
-        }
-        Debug.Log("DragEnd. " + eventData.position);
+    public void EmptyIt()
+    {
+        sR.raycastTarget = false;
+        sR.sprite = null;
+        itemHere = null;
     }
 
 }

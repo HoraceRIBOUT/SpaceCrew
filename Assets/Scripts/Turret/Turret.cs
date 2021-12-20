@@ -18,17 +18,17 @@ public class Turret : MonoBehaviour
 
     private float lastShot = 0;
 
-    public virtual float Try_Shoot(Vector3 targetPos, float dmgMultiplier = 1)
+    public virtual float Try_Shoot(Vector3 targetPos, float dmgMultiplier = 1, float shtSizeMultiplier = 1)
     {
         if (Time.time - lastShot > cooldown)
         {
-            Shoot(targetPos, dmgMultiplier);
+            Shoot(targetPos, dmgMultiplier, shtSizeMultiplier);
             return chauffe;
         }
         return 0;
     }
 
-    protected virtual void Shoot(Vector3 targetPos, float dmgMultiplier = 1)
+    protected virtual void Shoot(Vector3 targetPos, float dmgMultiplier = 1, float shtSizeMultiplier = 1)
     {
         GameObject shootGO = Instantiate(prefabShoot, startPoint.position, Quaternion.identity, null);
         Shoot shootShoot = shootGO.GetComponent<Shoot>();
@@ -40,6 +40,7 @@ public class Turret : MonoBehaviour
 
             shootShoot.direction *= shootSpeed;
             shootShoot.damage *= dmgMultiplier;
+            shootShoot.transform.localScale *= shtSizeMultiplier;
         }
         lastShot = Time.time;
     }

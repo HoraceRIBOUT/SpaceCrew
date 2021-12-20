@@ -22,7 +22,9 @@ public class Vaisseau : MonoBehaviour
 
     [Header("Defense")]
     public float pv = 100;
+    public float pvMax = 100;
     public float armor = 0;
+    public float regenPerSeconds = 0;
 
     [Header("Movement")]
     public float speedGainPerSecond = 0.1f;
@@ -35,6 +37,8 @@ public class Vaisseau : MonoBehaviour
     [Header("Shoot")]
     public List<Turret> turrets;
     public float damageMult = 1;
+    public float shotSizeMult = 1;
+    public float contactDamage = 0;
 
     public float surchauffe = 0;
     public float surchauffeMax = 2;
@@ -51,6 +55,11 @@ public class Vaisseau : MonoBehaviour
     public Transform visualMain;
     public SpriteRenderer surchauffeRenderer;
     public Gradient colorSurchauffe;
+    public UnityEngine.UI.Slider surchauffeSlid;
+    public TMPro.TMP_Text surchauffeText;
+
+    public UnityEngine.UI.Slider pvSlid;
+    public TMPro.TMP_Text pvText;
 
     public ConvData convData;
 
@@ -60,12 +69,19 @@ public class Vaisseau : MonoBehaviour
     public TMPro.TMP_Text tutoShootAndClick;
     public bool moveDOne;
     public bool shootDone;
+    public bool gatherRessourceDone;
 
     // Start is called before the first frame update
     void Start()
     {
         if (friction >= speedGainPerSecond)
             friction = speedGainPerSecond / 2f;
+
+        convData.Initialize();
+
+        romStatPerChara.Add(Character.milit, new Rom_Stat());
+        romStatPerChara.Add(Character.pilot, new Rom_Stat());
+        romStatPerChara.Add(Character.mecan, new Rom_Stat());
 
         StartCoroutine(CinematicIntro());
     }
@@ -86,12 +102,16 @@ public class Vaisseau : MonoBehaviour
             MovementManager();
 
             ShootManagement();
-
-
-            TutorialManagement();
-
         }
+
+        if(pv < pvMax)
+        {
+            pv+= regenPerSeconds*Time.deltaTime;
+        }
+
         UpdateVisual();
+
+        TutorialManagement();
     }
 
 
@@ -130,7 +150,19 @@ public class Vaisseau : MonoBehaviour
         //visualMain.rotation = ;
 
         surchauffeRenderer.color = colorSurchauffe.Evaluate((surchauffe / surchauffeMax) * (surchauffe / surchauffeMax));
+
+
+        pvSlid.value = Mathf.Lerp(pvSlid.value, pv / pvMax, Time.deltaTime);
+        pvText.text = pv + "/" + pvMax;
+
+        surchauffeSlid.value = surchauffe / surchauffeMax;
+        if(surchauffeOn)
+            surchauffeText.text = "Overheat";
+        else
+            surchauffeText.text = "";
     }
+
+
     
     public void ShootManagement()
     {
@@ -157,7 +189,7 @@ public class Vaisseau : MonoBehaviour
         foreach (Turret turr in turrets)
         {
             if(Input.GetMouseButton(0))
-                surchauffe += turr.Try_Shoot(mousePos, damageMult);
+                surchauffe += turr.Try_Shoot(mousePos, damageMult, shotSizeMult);
             
             turr.UpdateVisual(mousePos);
         }
@@ -214,6 +246,13 @@ public class Vaisseau : MonoBehaviour
         }
 
         //Add a fx in ui to make sure that player know that he have collect an item
+
+        if (!gatherRessourceDone)
+        {
+            gatherRessourceDone = true;
+            if (moveDOne && shootDone && gatherRessourceDone)
+                ui_man.conversation.StartThisConversation(convData.afterTutoConv);
+        }
     }
     public void RemInInv(item itemAdd, int numberToRem = 1)
     {
@@ -223,13 +262,15 @@ public class Vaisseau : MonoBehaviour
         }
         else
         {
-            if (inventory[itemAdd] == 1)
+            if (inventory[itemAdd] <= numberToRem)
             {
                 inventory.Remove(itemAdd);
+                Debug.Log("Remove all " + itemAdd.type + " (" + numberToRem + ")");
             }
             else
             {
                 inventory[itemAdd] = inventory[itemAdd] - numberToRem;
+                Debug.Log("Remove " + itemAdd.type + " rest : " + inventory[itemAdd]);
             }
 
         }
@@ -245,33 +286,48 @@ public class Vaisseau : MonoBehaviour
             if (currentSpeed.magnitude == maxSpeed)
                 moveDOne = true;
 
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) && (!ui_man.conversation.on) && tutoShoot.alpha > 0.5)
                 shootDone = true;
 
-            if (moveDOne && shootDone)
+            if (moveDOne && shootDone && gatherRessourceDone)
                 ui_man.conversation.StartThisConversation(convData.afterTutoConv);
         }
 
         if (moveDOne && tutoMove.alpha > 0)
-            tutoMove.alpha -= Time.deltaTime*0.5f;
+            tutoMove.alpha -= Time.deltaTime * 0.5f;
+        else if (!moveDOne && (!ui_man.conversation.on) && tutoMove.alpha < 1)
+            tutoMove.alpha += Time.deltaTime * 0.5f;
 
         if (shootDone && tutoShoot.alpha > 0)
         {
             tutoShoot.alpha -= Time.deltaTime * 0.5f;
             tutoShootAndClick.alpha -= Time.deltaTime * 0.5f;
         }
+        else if(!shootDone && (!ui_man.conversation.on) && tutoShoot.alpha < 1)
+        {
+            tutoShoot.alpha += Time.deltaTime * 0.5f;
+            tutoShootAndClick.alpha += Time.deltaTime * 0.5f;
+        }
 
     }
 
     public void AddStat(Stat statToAdd)
     {
+        Stat pastStat = getStat();
+
         maxSpeed += statToAdd.speedMax;
         speedGainPerSecond += statToAdd.speedGain;
         friction += statToAdd.friction;
         damageMult += statToAdd.damage;
+        shotSizeMult += statToAdd.shotSize;
         pv += statToAdd.pv;
+        pv += statToAdd.pvMax;
         armor += statToAdd.armor;
         surchauffeMax += statToAdd.surchauffeMax;
+        regenPerSeconds += statToAdd.regen;
+        contactDamage += statToAdd.contactDamage;
+
+        ui_man.inventory.vaisseauStat.VisualStat(pastStat, getStat());
     }
 
 
@@ -349,23 +405,27 @@ public class Vaisseau : MonoBehaviour
         this.transform.position = Vector3.Lerp(landingPoint_start, landingPoint, landingPosCurve.Evaluate(landingLerp));
     }
 
+    private Conversation lastConvLand = null;
     public void Land()
     {
+        pv = pvMax;
         //if conversation : make conv before landing
         if(convData.landingConv.Count != 0)
         {
             if(convData.landingConv.Count == 1)
             {
-                convData.landingConv[0].actionToPerformAtEnd += OpenInventory;
-                ui_man.conversation.StartThisConversation(convData.landingConv[0]);
+                lastConvLand = convData.landingConv[0];
+                lastConvLand.actionToPerformAtEnd += OpenInventory;
+                ui_man.conversation.StartThisConversation(lastConvLand);
                 return;
             }
             int randomRange = Random.Range(0, 100);
             if(randomRange > 50)
             {
                 int index = Random.Range(0, convData.landingConv.Count - 1);
-                convData.landingConv[index].actionToPerformAtEnd += OpenInventory;
-                ui_man.conversation.StartThisConversation(convData.landingConv[index]);
+                lastConvLand = convData.landingConv[index];
+                lastConvLand.actionToPerformAtEnd += OpenInventory;
+                ui_man.conversation.StartThisConversation(lastConvLand);
                 return;
             }
         }
@@ -376,8 +436,27 @@ public class Vaisseau : MonoBehaviour
 
     public void OpenInventory()
     {
+        lastConvLand.actionToPerformAtEnd = null;
         ui_man.inventory.OpenInventory();
     }
+
+    public Stat getStat()
+    {
+        Stat res = new Stat();
+        res.speedMax        = maxSpeed;
+        res.speedGain       = speedGainPerSecond;
+        res.friction        = friction;
+        res.damage          = damageMult;
+        res.pv              = pv;
+        res.pvMax           = pvMax;
+        res.armor           = armor;
+        res.surchauffeMax   = surchauffeMax;
+        res.regen           = regenPerSeconds;
+        res.contactDamage   = contactDamage;
+        res.shotSize        = shotSizeMult;
+
+        return res;
+    }                   
 
     public void ClosedInventory()
     {

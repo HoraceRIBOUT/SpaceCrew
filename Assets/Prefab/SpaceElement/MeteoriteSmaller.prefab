@@ -156,8 +156,9 @@ MonoBehaviour:
   - {fileID: 444870795565047260, guid: 7e8228a347a94ed4193204cd52f5e1f0, type: 3}
   - {fileID: 444870795565047260, guid: 7e8228a347a94ed4193204cd52f5e1f0, type: 3}
   - {fileID: 8551107713298913475, guid: 54b359fd125a604459ca2d0a9301f4ce, type: 3}
-  numberItemDrop: 0
+  numberItemDrop: 2
   notDouble: 0
+  distanceDrop: 0.5
   movementRange: {x: 0.3, y: 0.3, z: 0}
   movement: {x: 0, y: 0, z: 0}
   rotSpeed: 12

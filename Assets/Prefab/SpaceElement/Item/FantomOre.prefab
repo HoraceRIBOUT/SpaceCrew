@@ -63,6 +63,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemCollect: {fileID: 11400000, guid: 871838f332e2c1243b5bec99ef0046df, type: 2}
   sR: {fileID: 5151976345714794914}
+  movementRange: {x: 0.05, y: 0.05, z: 0}
+  movement: {x: 0, y: 0, z: 0}
+  rotSpeed: 12
+  destroyFX: {fileID: 0}
 --- !u!1 &5151976345714794912
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,6 +8,7 @@ public class Destroyable : MonoBehaviour
     public List<GameObject> dropableObject;
     public int numberItemDrop = 0;
     public bool notDouble = false;
+    public float distanceDrop = 1f;
 
     public Vector3 movementRange = new Vector3();
     public Vector3 movement = Vector3.zero;
@@ -49,8 +50,11 @@ public class Destroyable : MonoBehaviour
 
             for (int i = 0; i < numberItemDrop && dropableObject.Count > 0; i++)
             {
+                Vector3 randomOffset = new Vector3( Random.Range(-1, 1),Random.Range(-1,1), 0);
+                randomOffset = randomOffset.normalized * Random.Range(0, distanceDrop);
+
                 int randomIndex = Random.Range(0, dropableObject.Count);
-                Collectable collec = Instantiate(dropableObject[randomIndex], this.transform.position, this.transform.rotation).GetComponent<Collectable>();
+                Collectable collec = Instantiate(dropableObject[randomIndex], this.transform.position + randomOffset, this.transform.rotation).GetComponent<Collectable>();
                 //Push it in a random direction with rotation
 
                 if (notDouble)

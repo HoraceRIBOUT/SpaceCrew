@@ -1,31 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Sirenix.OdinInspector;
 
 [CreateAssetMenu(fileName = "Collectable", menuName = "CustomScriptableObject/Collectable", order = 1)]
 public class item : ScriptableObject
 {
     public ItemCollectable type;
+    [Tooltip("Put to 1 to make it unique. -1 for infinite.")]
+    public int numberPossible = -1;
 
     //
     [Header("Milit")]
-    public bool giveMilit = false;
-    public Conversation convForMilit_try;
-    public Conversation convForMilit_conf;
-    public Stat statToAddMilit;
-    public Rom_Stat romStatToAddToMilit;
+    [FoldoutGroup("Milit")]public bool giveMilit = false;
+    [FoldoutGroup("Milit")]public Conversation convForMilit_try;
+    [FoldoutGroup("Milit")]public Conversation convForMilit_conf;
+    [FoldoutGroup("Milit")]public Stat statToAddMilit;
+    [FoldoutGroup("Milit")]public Rom_Stat romStatToAddToMilit;
     [Header("Pilot")]
-    public bool givePilot = false;
-    public Conversation convForPilot_try;
-    public Conversation convForPilot_conf;
-    public Stat statToAddPilot;
-    public Rom_Stat romStatToAddToPilot;
+    [FoldoutGroup("Pilot")]public bool givePilot = false;
+    [FoldoutGroup("Pilot")]public Conversation convForPilot_try;
+    [FoldoutGroup("Pilot")]public Conversation convForPilot_conf;
+    [FoldoutGroup("Pilot")]public Stat statToAddPilot;
+    [FoldoutGroup("Pilot")] public Rom_Stat romStatToAddToPilot;
     [Header("Mecan")]
-    public bool giveMecan = false;
-    public Conversation convForMecan_try;
-    public Conversation convForMecan_conf;
-    public Stat statToAddMecan;
-    public Rom_Stat romStatToAddToMecan;
+    [FoldoutGroup("Mecan")]public bool giveMecan = false;
+    [FoldoutGroup("Mecan")]public Conversation convForMecan_try;
+    [FoldoutGroup("Mecan")]public Conversation convForMecan_conf;
+    [FoldoutGroup("Mecan")]public Stat statToAddMecan;
+    [FoldoutGroup("Mecan")] public Rom_Stat romStatToAddToMecan;
 
 
     public Color color = Color.white;

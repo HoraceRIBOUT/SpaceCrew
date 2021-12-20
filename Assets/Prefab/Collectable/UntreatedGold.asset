@@ -13,12 +13,55 @@ MonoBehaviour:
   m_Name: UntreatedGold
   m_EditorClassIdentifier: 
   type: 15
+  numberPossible: -1
   giveMilit: 1
   convForMilit_try:
-    sentences: []
+    sentences:
+    - character: 2
+      indexFace: 0
+      bgColor: {r: 1, g: 0.4, b: 0.31764707, a: 0.57254905}
+      textDisplay: Oh! That some untreated gold!
+      speed: 1
+      animation: 0
+    - character: 2
+      indexFace: 0
+      bgColor: {r: 1, g: 0.4, b: 0.31764707, a: 0.57254905}
+      textDisplay: This use to have so much value. It get lost by time. It's still
+        a wonderfull metal somehow.
+      speed: 1
+      animation: 0
+    - character: 2
+      indexFace: 0
+      bgColor: {r: 1, g: 0.4, b: 0.31764707, a: 0.57254905}
+      textDisplay: I use it a lot to help the weaponery get cooler faster. You want
+        to see how?
+      speed: 1
+      animation: 0
     currentIndex: 0
   convForMilit_conf:
-    sentences: []
+    sentences:
+    - character: 2
+      indexFace: 0
+      bgColor: {r: 1, g: 0.4, b: 0.31764707, a: 0.57254905}
+      textDisplay: Our weapon work with no physical munition, but produce the energy.
+        It allow for unlimited munition, but the energy still stack on the turret.
+      speed: 1
+      animation: 0
+    - character: 2
+      indexFace: 0
+      bgColor: {r: 1, g: 0.4, b: 0.31764707, a: 0.57254905}
+      textDisplay: The untreated gold take all the recoil of the energy ammo. Gold
+        is the best conductor for this type of energy. Untreated. Else, it's less
+        effective.
+      speed: 1
+      animation: 0
+    - character: 2
+      indexFace: 0
+      bgColor: {r: 1, g: 0.4, b: 0.31764707, a: 0.57254905}
+      textDisplay: This way, the ammo can build up more energy, but the engine don't
+        overheat! Go test it and have fun!
+      speed: 1
+      animation: 0
     currentIndex: 0
   statToAddMilit:
     speedMax: 0
@@ -26,12 +69,17 @@ MonoBehaviour:
     friction: 0
     damage: 0
     pv: 0
+    pvMax: 0
     armor: 0
+    surchauffeMax: 0.8
+    regen: 0
+    contactDamage: 0
+    shotSize: 0
   romStatToAddToMilit:
-    affection: 0
+    affection: 0.5
     love: 0
     openess: 0
-  givePilot: 1
+  givePilot: 0
   convForPilot_try:
     sentences: []
     currentIndex: 0
@@ -44,7 +92,12 @@ MonoBehaviour:
     friction: 0
     damage: 0
     pv: 0
+    pvMax: 0
     armor: 0
+    surchauffeMax: 0
+    regen: 0
+    contactDamage: 0
+    shotSize: 0
   romStatToAddToPilot:
     affection: 0
     love: 0
@@ -62,7 +115,12 @@ MonoBehaviour:
     friction: 0
     damage: 0
     pv: 0
+    pvMax: 0
     armor: 0
+    surchauffeMax: 0
+    regen: 0
+    contactDamage: 0
+    shotSize: 0
   romStatToAddToMecan:
     affection: 0
     love: 0
@@ -73,3 +131,4 @@ MonoBehaviour:
   onPickUp:
     sentences: []
     currentIndex: 0
+  addTuret: {fileID: 0}

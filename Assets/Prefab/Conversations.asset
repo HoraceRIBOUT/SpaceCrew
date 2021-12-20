@@ -31,7 +31,7 @@ MonoBehaviour:
       indexFace: 0
       bgColor: {r: 0.6039216, g: 0.4784314, b: 0.4784314, a: 1}
       textDisplay: 'The basic of your job is still there : collect ressource and
-        dispatch it between the sections. '
+        class them.'
       speed: 1
       animation: 0
     - character: 2
@@ -60,7 +60,7 @@ MonoBehaviour:
       speed: 0.1
       animation: 0
     - character: 3
-      indexFace: 0
+      indexFace: 3
       bgColor: {r: 0.51775545, g: 0.6072418, b: 0.6132076, a: 1}
       textDisplay: To... exercice with the shooting...?
       speed: 0.6
@@ -72,7 +72,7 @@ MonoBehaviour:
       speed: 1
       animation: 0
     - character: 2
-      indexFace: 0
+      indexFace: 5
       bgColor: {r: 0.6039216, g: 0.4784314, b: 0.4784314, a: 1}
       textDisplay: Try shoot on the asteroid. There are full of ressources. Collect
         them afterward.
@@ -80,5 +80,165 @@ MonoBehaviour:
       animation: 0
     currentIndex: 0
   afterTutoConv:
-    sentences: []
+    sentences:
+    - character: 2
+      indexFace: 0
+      bgColor: {r: 0.735849, g: 0.5171769, b: 0.5171769, a: 179}
+      textDisplay: Good ! Let meet the pilot you just have command.
+      speed: 1
+      animation: 0
+    - character: 1
+      indexFace: 12
+      bgColor: {r: 0.7490196, g: 0.7370926, b: 0.5294118, a: 179}
+      textDisplay: Hel...Hello.
+      speed: 1
+      animation: 0
+    - character: 1
+      indexFace: 12
+      bgColor: {r: 0.7490196, g: 0.7372549, b: 0.5294118, a: 179}
+      textDisplay: '. . . am Lucrecia, Pilot of ... this ship. Lucrecia Eyes. '
+      speed: 0.6
+      animation: 0
+    - character: 2
+      indexFace: 0
+      bgColor: {r: 0.745283, g: 0.5238074, b: 0.5238074, a: 179}
+      textDisplay: She is shy, you will get use to it.
+      speed: 1
+      animation: 0
+    - character: 1
+      indexFace: 12
+      bgColor: {r: 0.764151, g: 0.7393912, b: 0.54427737, a: 179}
+      textDisplay: I... i wanted to say...
+      speed: 1
+      animation: 0
+    - character: 1
+      indexFace: 11
+      bgColor: {r: 0.76470596, g: 0.7411765, b: 0.54509807, a: 179}
+      textDisplay: 'The... the ship have a lot of inertia. It take time to start
+        and to build up sp..speed. '
+      speed: 0.75
+      animation: 0
+    - character: 1
+      indexFace: 8
+      bgColor: {r: 0.76470596, g: 0.7411765, b: 0.54509807, a: 179}
+      textDisplay: So, don't freak out if you are slow! The ship is old, don't get
+        angry at it!
+      speed: 2
+      animation: 0
+    - character: 2
+      indexFace: 5
+      bgColor: {r: 0.754717, g: 0.501958, b: 0.501958, a: 179}
+      textDisplay: Thanks Ms Eyes. You can take a break if needed you know.
+      speed: 1
+      animation: 0
+    - character: 1
+      indexFace: 6
+      bgColor: {r: 0.76470596, g: 0.7411765, b: 0.54509807, a: 179}
+      textDisplay: < breaht heavealy >
+      speed: 1
+      animation: 0
+    - character: 2
+      indexFace: 0
+      bgColor: {r: 0.75294125, g: 0.5019608, b: 0.5019608, a: 179}
+      textDisplay: 'One last thing : we only work on the ship when we are on ground.
+        So, if you want to upgrade the ship, go land on a planet.'
+      speed: 1
+      animation: 0
+    - character: 2
+      indexFace: 0
+      bgColor: {r: 0.75294125, g: 0.5019608, b: 0.5019608, a: 179}
+      textDisplay: Try now. Go on any planet.
+      speed: 1
+      animation: 0
+    - character: 1
+      indexFace: 5
+      bgColor: {r: 0.76470596, g: 0.7411765, b: 0.54509807, a: 179}
+      textDisplay: Eh ! Psht ! I take care of the landing, just go straight to the...
+        to the planet. Trust me.
+      speed: 1
+      animation: 0
     currentIndex: 0
+  landingConv: []
+  firstLandingConv:
+    sentences:
+    - character: 1
+      indexFace: 6
+      bgColor: {r: 0.76470596, g: 0.7411765, b: 0.54509807, a: 179}
+      textDisplay: Con... congrats on your first landing!
+      speed: 1
+      animation: 0
+    - character: 3
+      indexFace: 0
+      bgColor: {r: 149, g: 105, b: 105, a: 179}
+      textDisplay: When we land, I make a whole chekup! The ship will always be fully
+        repair before we go off again!
+      speed: 1
+      animation: 0
+    - character: 2
+      indexFace: 0
+      bgColor: {r: 149, g: 105, b: 105, a: 179}
+      textDisplay: You can give us the ressources you've just gather. Just drag them
+        from the inventory and drop them in front of us.
+      speed: 1
+      animation: 0
+    - character: 3
+      indexFace: 1
+      bgColor: {r: 0.5294118, g: 0.70105267, b: 0.7490196, a: 179}
+      textDisplay: 'Eh ! Don''t be scare to make the wrong choice : we will explain
+        to you what we can do, and ask you to validate that choice!'
+      speed: 1
+      animation: 0
+    - character: 3
+      indexFace: 4
+      bgColor: {r: 0.5294118, g: 0.7019608, b: 0.7490196, a: 179}
+      textDisplay: 'Oh, and sometimes, it''s just good to use some item for fun and
+        not only for work. '
+      speed: 1
+      animation: 0
+    - character: 3
+      indexFace: 4
+      bgColor: {r: 0.5294118, g: 0.7019608, b: 0.7490196, a: 179}
+      textDisplay: Like... maybe.... if you find some copper... You can give them
+        to me so I can make some sculpt...
+      speed: 0.6
+      animation: 4
+    - character: 2
+      indexFace: 7
+      bgColor: {r: 0.4039216, g: 0.27058825, b: 0.27058825, a: 179}
+      textDisplay: . . .
+      speed: 0.25
+      animation: 0
+    - character: 3
+      indexFace: 3
+      bgColor: {r: 0.5294118, g: 0.7019608, b: 0.7490196, a: 179}
+      textDisplay: OH! LOOK AT THE TIME! I HAVE SOME PIPES TO REPAIR! BY-YE
+      speed: 1
+      animation: 5
+    - character: 2
+      indexFace: 1
+      bgColor: {r: 0.4056604, g: 0.26980242, b: 0.26980242, a: 179}
+      textDisplay: . . .
+      speed: 0.75
+      animation: 0
+    - character: 2
+      indexFace: 2
+      bgColor: {r: 0.7254902, g: 0.49803925, b: 0.49803925, a: 179}
+      textDisplay: < expires strongly >
+      speed: 1
+      animation: 0
+    - character: 2
+      indexFace: 1
+      bgColor: {r: 0.7254902, g: 0.49803925, b: 0.49803925, a: 179}
+      textDisplay: 'She is right you know. Sometimes, taking time to make gift or
+        to think about something else than work is good. '
+      speed: 1.5
+      animation: 0
+    currentIndex: 0
+  defaultLandingConv: []
+  land_FriendMilit: []
+  land_FriendPilot: []
+  land_FriendMecan: []
+  land_FriendMilitPilot: []
+  land_FriendPilotMecan: []
+  land_FriendMecanMilit: []
+  land_FriendMilitPilotMecan: []

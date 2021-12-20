@@ -86,12 +86,14 @@ public class UI_Conversation : MonoBehaviour
         currentConversationDisplayed = conv;
         conv.currentIndex = 0;
         DisplayConversation(conv);
+
+        Debug.Log("Conv " + (conv.actionToPerformAtEnd != null));
     }
 
     void DisplayConversation(Conversation currentConversationDisplayed)
     {
         Sentence sent = currentConversationDisplayed.sentences[currentConversationDisplayed.currentIndex];
-        Debug.Log("Update conversation (" + currentConversationDisplayed.currentIndex + ") : " + sent.textDisplay);
+//        Debug.Log("Update conversation (" + currentConversationDisplayed.currentIndex + ") : " + sent.textDisplay);
         DisplaySentence(sent);
     }
 
@@ -104,7 +106,7 @@ public class UI_Conversation : MonoBehaviour
         on = true;
         if (indexCharac != -1)
         {
-            Debug.Log("indexCharac " + indexCharac);
+            //Debug.Log("indexCharac " + indexCharac);
             iconMain.sprite = characterSprite[indexCharac];
             if (iconMainAnim != null)
                 iconMainAnim.SetInteger("State", (int)sent.animation);
@@ -185,17 +187,23 @@ public class UI_Conversation : MonoBehaviour
     }
 
 
+    public void ForceFinish()
+    {
+        currentConversationDisplayed.currentIndex = currentConversationDisplayed.sentences.Count-1;
+        ConversationAdvance();
+    }
+
     public bool ConversationAdvance()
     {
         currentConversationDisplayed.currentIndex++;
         if (currentConversationDisplayed.currentIndex >= currentConversationDisplayed.sentences.Count)
         {
-            Debug.Log("Finish here !");
+            Debug.Log("Finish conv here !" + (currentConversationDisplayed.actionToPerformAtEnd != null));
             Finish();
-            if(currentConversationDisplayed.actionToPerformAtEnd != null)
+            if (currentConversationDisplayed.actionToPerformAtEnd != null)
             {
                 currentConversationDisplayed.actionToPerformAtEnd.Invoke();
-                currentConversationDisplayed.actionToPerformAtEnd = null;
+                //The method invoked HAVE to deal with clearing the action
             }
             currentConversationDisplayed.currentIndex = 0;
             return false;
